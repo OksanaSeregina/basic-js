@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require("../extensions/index.js");
 
 /**
  * In the popular Minesweeper game you have a board with some mines and those cells
@@ -23,11 +23,82 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function minesweeper(matrix) {
+  const result = matrix.map((r) => {
+    return r.map((e) => {
+      return 0;
+    });
+  });
+  matrix.forEach((row, rowIndex) => {
+    row.forEach((element, elementIndex) => {
+      if (element) {
+        result[rowIndex][elementIndex] = true;
+        if (
+          result[rowIndex] &&
+          result[rowIndex][elementIndex - 1] !== undefined &&
+          result[rowIndex][elementIndex - 1] !== true
+        ) {
+          result[rowIndex][elementIndex - 1] += 1;
+        }
+        if (
+          result[rowIndex] &&
+          result[rowIndex][elementIndex + 1] !== undefined &&
+          result[rowIndex][elementIndex + 1] !== true
+        ) {
+          result[rowIndex][elementIndex + 1] += 1;
+        }
+
+        if (
+          result[rowIndex - 1] &&
+          result[rowIndex - 1][elementIndex - 1] !== undefined &&
+          result[rowIndex - 1][elementIndex - 1] !== true
+        ) {
+          result[rowIndex - 1][elementIndex - 1] += 1;
+        }
+        if (
+          result[rowIndex - 1] &&
+          result[rowIndex - 1][elementIndex] !== undefined &&
+          result[rowIndex - 1][elementIndex] !== true
+        ) {
+          result[rowIndex - 1][elementIndex] += 1;
+        }
+        if (
+          result[rowIndex - 1] &&
+          result[rowIndex - 1][elementIndex + 1] !== undefined &&
+          result[rowIndex - 1][elementIndex + 1] !== true
+        ) {
+          result[rowIndex - 1][elementIndex + 1] += 1;
+        }
+
+        if (
+          result[rowIndex + 1] &&
+          result[rowIndex + 1][elementIndex - 1] !== undefined &&
+          result[rowIndex + 1][elementIndex - 1] !== true
+        ) {
+          result[rowIndex + 1][elementIndex - 1] += 1;
+        }
+        if (
+          result[rowIndex + 1] &&
+          result[rowIndex + 1][elementIndex] !== undefined &&
+          result[rowIndex + 1][elementIndex] !== true
+        ) {
+          result[rowIndex + 1][elementIndex] += 1;
+        }
+        if (
+          result[rowIndex + 1] &&
+          result[rowIndex + 1][elementIndex + 1] !== undefined &&
+          result[rowIndex + 1][elementIndex + 1] !== true
+        ) {
+          result[rowIndex + 1][elementIndex + 1] += 1;
+        }
+      }
+    });
+  });
+  return result.map((r) => {
+    return r.map((e) => (e === true ? 1 : e));
+  });
 }
 
 module.exports = {
-  minesweeper
+  minesweeper,
 };
